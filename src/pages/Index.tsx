@@ -139,7 +139,7 @@ const Index = () => {
             </div>
             <Button className="bg-orange hover:bg-orange-dark text-white">
               <Icon name="Phone" size={16} className="mr-2" />
-              +7 (999) 123-45-67
+              +7 (909) 872-26-29
             </Button>
           </nav>
         </div>
@@ -165,7 +165,7 @@ const Index = () => {
               </Button>
               <Button size="lg" variant="outline" className="border-blue text-blue hover:bg-blue hover:text-white px-8 py-4 text-lg">
                 <Icon name="Phone" size={20} className="mr-2" />
-                Позвонить сейчас
+                +7 (909) 872-26-29
               </Button>
             </div>
           </div>
@@ -230,7 +230,7 @@ const Index = () => {
                     <Input
                       id="phone"
                       type="tel"
-                      placeholder="+7 (999) 123-45-67"
+                      placeholder="+7 (909) 872-26-29"
                       value={bookingForm.phone}
                       onChange={(e) => setBookingForm({...bookingForm, phone: e.target.value})}
                       required
@@ -397,7 +397,7 @@ const Index = () => {
                 <div className="space-y-4">
                   <div className="flex items-center">
                     <Icon name="Phone" size={20} className="text-orange mr-4" />
-                    <span className="text-lg">+7 (999) 123-45-67</span>
+                    <span className="text-lg">+7 (909) 872-26-29</span>
                   </div>
                   <div className="flex items-center">
                     <Icon name="Mail" size={20} className="text-orange mr-4" />
