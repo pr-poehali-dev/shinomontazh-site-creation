@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -15,6 +15,32 @@ const Index = () => {
     date: '',
     message: ''
   });
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const observerRef = useRef<IntersectionObserver | null>(null);
+
+  useEffect(() => {
+    observerRef.current = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('animate-fade-up');
+            entry.target.classList.remove('opacity-0');
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
+    );
+
+    const elements = document.querySelectorAll('.scroll-animate');
+    elements.forEach((el) => {
+      observerRef.current?.observe(el);
+    });
+
+    return () => {
+      observerRef.current?.disconnect();
+    };
+  }, []);
 
   const services = [
     {
@@ -61,11 +87,37 @@ const Index = () => {
     '/placeholder.svg'
   ];
 
-  const handleBookingSubmit = (e: React.FormEvent) => {
+  const handleBookingSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Booking submitted:', bookingForm);
-    alert('Заявка отправлена! Мы свяжемся с вами в ближайшее время.');
-    setBookingForm({ name: '', phone: '', service: '', date: '', message: '' });
+    setIsSubmitting(true);
+
+    try {
+      // Имитация отправки email (в реальном проекте здесь был бы API вызов)
+      const emailData = {
+        to: 'info@shinopro.ru',
+        subject: `Новая заявка на шиномонтаж от ${bookingForm.name}`,
+        body: `
+          Имя: ${bookingForm.name}
+          Телефон: ${bookingForm.phone}
+          Услуга: ${bookingForm.service}
+          Желаемая дата: ${bookingForm.date}
+          Дополнительная информация: ${bookingForm.message}
+        `
+      };
+
+      console.log('Email data:', emailData);
+      
+      // Симуляция задержки отправки
+      await new Promise(resolve => setTimeout(resolve, 2000));
+      
+      alert('✅ Заявка успешно отправлена! Мы свяжемся с вами в ближайшее время.');
+      setBookingForm({ name: '', phone: '', service: '', date: '', message: '' });
+    } catch (error) {
+      console.error('Ошибка отправки:', error);
+      alert('❌ Произошла ошибка при отправке. Пожалуйста, попробуйте позже или позвоните нам.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -121,15 +173,15 @@ const Index = () => {
       </section>
 
       {/* Services Section */}
-      <section id="services" className="py-20 bg-gray-50">
+      <section id="services" className="py-20 bg-gray-50 scroll-animate opacity-0">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
+          <div className="text-center mb-16 scroll-animate opacity-0">
             <h2 className="text-4xl font-bold text-gray-900 mb-4">Наши услуги</h2>
             <p className="text-xl text-gray-600">Полный спектр услуг для вашего автомобиля</p>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {services.map((service, index) => (
-              <Card key={index} className="hover:shadow-lg transition-shadow group cursor-pointer">
+              <Card key={index} className="hover:shadow-lg transition-shadow group cursor-pointer scroll-animate opacity-0" style={{ animationDelay: `${index * 0.1}s` }}>
                 <CardHeader className="text-center">
                   <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-orange to-blue rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
                     <Icon name={service.icon as any} size={24} className="text-white" />
@@ -149,14 +201,14 @@ const Index = () => {
       </section>
 
       {/* Online Booking Section */}
-      <section className="py-20 bg-gradient-to-br from-orange/5 to-blue/5">
+      <section className="py-20 bg-gradient-to-br from-orange/5 to-blue/5 scroll-animate opacity-0">
         <div className="container mx-auto px-4">
           <div className="max-w-2xl mx-auto">
-            <div className="text-center mb-12">
+            <div className="text-center mb-12 scroll-animate opacity-0">
               <h2 className="text-4xl font-bold text-gray-900 mb-4">Онлайн запись</h2>
               <p className="text-xl text-gray-600">Забронируйте удобное время прямо сейчас</p>
             </div>
-            <Card>
+            <Card className="scroll-animate opacity-0">
               <CardHeader>
                 <CardTitle className="text-2xl text-center">Форма записи</CardTitle>
               </CardHeader>
@@ -214,9 +266,22 @@ const Index = () => {
                       onChange={(e) => setBookingForm({...bookingForm, message: e.target.value})}
                     />
                   </div>
-                  <Button type="submit" className="w-full bg-orange hover:bg-orange-dark text-white text-lg py-3">
-                    <Icon name="Send" size={20} className="mr-2" />
-                    Отправить заявку
+                  <Button 
+                    type="submit" 
+                    className="w-full bg-orange hover:bg-orange-dark text-white text-lg py-3"
+                    disabled={isSubmitting}
+                  >
+                    {isSubmitting ? (
+                      <>
+                        <Icon name="Loader2" size={20} className="mr-2 animate-spin" />
+                        Отправляем...
+                      </>
+                    ) : (
+                      <>
+                        <Icon name="Send" size={20} className="mr-2" />
+                        Отправить заявку
+                      </>
+                    )}
                   </Button>
                 </form>
               </CardContent>
@@ -226,15 +291,15 @@ const Index = () => {
       </section>
 
       {/* Gallery Section */}
-      <section id="gallery" className="py-20">
+      <section id="gallery" className="py-20 scroll-animate opacity-0">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
+          <div className="text-center mb-16 scroll-animate opacity-0">
             <h2 className="text-4xl font-bold text-gray-900 mb-4">Галерея работ</h2>
             <p className="text-xl text-gray-600">Примеры наших работ и современное оборудование</p>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {galleryImages.map((image, index) => (
-              <div key={index} className="relative group overflow-hidden rounded-lg aspect-square">
+              <div key={index} className="relative group overflow-hidden rounded-lg aspect-square scroll-animate opacity-0" style={{ animationDelay: `${index * 0.15}s` }}>
                 <img 
                   src={image} 
                   alt={`Работа ${index + 1}`}
@@ -252,14 +317,14 @@ const Index = () => {
       </section>
 
       {/* Prices Section */}
-      <section id="prices" className="py-20 bg-gray-50">
+      <section id="prices" className="py-20 bg-gray-50 scroll-animate opacity-0">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
+          <div className="text-center mb-16 scroll-animate opacity-0">
             <h2 className="text-4xl font-bold text-gray-900 mb-4">Цены на услуги</h2>
             <p className="text-xl text-gray-600">Прозрачные и честные цены без скрытых доплат</p>
           </div>
           <div className="max-w-4xl mx-auto">
-            <Card>
+            <Card className="scroll-animate opacity-0">
               <CardHeader>
                 <CardTitle className="text-2xl text-center">Прайс-лист</CardTitle>
               </CardHeader>
@@ -285,9 +350,9 @@ const Index = () => {
       </section>
 
       {/* About Section */}
-      <section id="about" className="py-20">
+      <section id="about" className="py-20 scroll-animate opacity-0">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center">
+          <div className="max-w-4xl mx-auto text-center scroll-animate opacity-0">
             <h2 className="text-4xl font-bold text-gray-900 mb-8">О нас</h2>
             <p className="text-xl text-gray-600 mb-8">
               Наш шиномонтаж работает уже более 10 лет, предоставляя качественные услуги 
@@ -295,21 +360,21 @@ const Index = () => {
               оригинальные запчасти, гарантируем высокое качество работ.
             </p>
             <div className="grid md:grid-cols-3 gap-8 mt-12">
-              <div className="text-center">
+              <div className="text-center scroll-animate opacity-0" style={{ animationDelay: '0.1s' }}>
                 <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-orange to-blue rounded-full flex items-center justify-center">
                   <Icon name="Award" size={24} className="text-white" />
                 </div>
                 <h3 className="text-xl font-semibold mb-2">10+ лет опыта</h3>
                 <p className="text-gray-600">Многолетний опыт работы с автомобилями любых марок</p>
               </div>
-              <div className="text-center">
+              <div className="text-center scroll-animate opacity-0" style={{ animationDelay: '0.2s' }}>
                 <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-orange to-blue rounded-full flex items-center justify-center">
                   <Icon name="Users" size={24} className="text-white" />
                 </div>
                 <h3 className="text-xl font-semibold mb-2">5000+ клиентов</h3>
                 <p className="text-gray-600">Довольных клиентов, которые доверяют нам свои автомобили</p>
               </div>
-              <div className="text-center">
+              <div className="text-center scroll-animate opacity-0" style={{ animationDelay: '0.3s' }}>
                 <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-orange to-blue rounded-full flex items-center justify-center">
                   <Icon name="Shield" size={24} className="text-white" />
                 </div>
@@ -322,12 +387,12 @@ const Index = () => {
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="py-20 bg-gray-900 text-white">
+      <section id="contact" className="py-20 bg-gray-900 text-white scroll-animate opacity-0">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="text-4xl font-bold text-center mb-12">Контакты</h2>
-            <div className="grid md:grid-cols-2 gap-12">
-              <div>
+          <div className="max-w-6xl mx-auto">
+            <h2 className="text-4xl font-bold text-center mb-12 scroll-animate opacity-0">Контакты</h2>
+            <div className="grid lg:grid-cols-3 gap-12">
+              <div className="scroll-animate opacity-0" style={{ animationDelay: '0.1s' }}>
                 <h3 className="text-2xl font-semibold mb-6">Свяжитесь с нами</h3>
                 <div className="space-y-4">
                   <div className="flex items-center">
@@ -348,7 +413,7 @@ const Index = () => {
                   </div>
                 </div>
               </div>
-              <div>
+              <div className="scroll-animate opacity-0" style={{ animationDelay: '0.2s' }}>
                 <h3 className="text-2xl font-semibold mb-6">Режим работы</h3>
                 <div className="space-y-2">
                   <div className="flex justify-between">
@@ -363,6 +428,45 @@ const Index = () => {
                     <span>Воскресенье</span>
                     <span className="text-orange">10:00 - 16:00</span>
                   </div>
+                </div>
+              </div>
+              <div className="scroll-animate opacity-0" style={{ animationDelay: '0.3s' }}>
+                <h3 className="text-2xl font-semibold mb-6">Наш адрес</h3>
+                <div className="relative">
+                  <div className="aspect-video rounded-lg overflow-hidden bg-gray-800 border border-gray-700">
+                    <iframe
+                      src="https://yandex.ru/map-widget/v1/?um=constructor%3A8c5c8f8be45e8f5e5b5e8f5e8f5e8f5e&amp;source=constructor"
+                      width="100%"
+                      height="100%"
+                      style={{ border: 0 }}
+                      allowFullScreen={true}
+                      loading="lazy"
+                      referrerPolicy="no-referrer-when-downgrade"
+                      className="grayscale hover:grayscale-0 transition-all duration-300"
+                      title="Карта с адресом шиномонтажа"
+                    ></iframe>
+                  </div>
+                  <div className="absolute top-4 right-4 bg-white/90 backdrop-blur rounded-lg p-3 text-gray-900 text-sm">
+                    <div className="flex items-center">
+                      <Icon name="MapPin" size={16} className="text-orange mr-2" />
+                      <span className="font-semibold">ШиноПро</span>
+                    </div>
+                    <p className="text-xs mt-1">ул. Автомобильная, 15</p>
+                  </div>
+                  <div className="absolute bottom-4 left-4 bg-orange/90 backdrop-blur rounded-lg p-2 text-white text-xs">
+                    <Icon name="Navigation" size={14} className="inline mr-1" />
+                    Построить маршрут
+                  </div>
+                </div>
+                <div className="mt-4 p-4 bg-gray-800 rounded-lg">
+                  <p className="text-sm text-gray-300 mb-2">
+                    <Icon name="Car" size={16} className="inline mr-2 text-orange" />
+                    Удобная парковка для 20+ автомобилей
+                  </p>
+                  <p className="text-sm text-gray-300">
+                    <Icon name="MapPin" size={16} className="inline mr-2 text-orange" />
+                    5 минут от метро Автозаводская
+                  </p>
                 </div>
               </div>
             </div>
