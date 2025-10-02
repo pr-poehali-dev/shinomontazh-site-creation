@@ -390,6 +390,92 @@ const Index = () => {
         </div>
       </section>
 
+      {/* Reviews Section */}
+      <section className="py-20 bg-gradient-to-br from-gray-50 to-white scroll-animate opacity-0">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16 scroll-animate opacity-0">
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">Отзывы клиентов</h2>
+            <p className="text-xl text-gray-600">Что говорят о нас наши клиенты</p>
+          </div>
+          <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            <Card className="scroll-animate opacity-0 hover:shadow-xl transition-shadow" style={{ animationDelay: '0.1s' }}>
+              <CardHeader>
+                <div className="flex items-center mb-4">
+                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-orange to-blue flex items-center justify-center text-white font-bold text-lg mr-4">
+                    АС
+                  </div>
+                  <div>
+                    <CardTitle className="text-lg">Алексей Соколов</CardTitle>
+                    <div className="flex text-orange mt-1">
+                      <Icon name="Star" size={16} className="fill-current" />
+                      <Icon name="Star" size={16} className="fill-current" />
+                      <Icon name="Star" size={16} className="fill-current" />
+                      <Icon name="Star" size={16} className="fill-current" />
+                      <Icon name="Star" size={16} className="fill-current" />
+                    </div>
+                  </div>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <p className="text-gray-600">
+                  Отличный сервис! Быстро переобули на зимнюю резину, сделали балансировку. Ребята профессионалы своего дела. Кофе действительно вкусный, время пролетело незаметно!
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="scroll-animate opacity-0 hover:shadow-xl transition-shadow" style={{ animationDelay: '0.2s' }}>
+              <CardHeader>
+                <div className="flex items-center mb-4">
+                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue to-orange flex items-center justify-center text-white font-bold text-lg mr-4">
+                    МК
+                  </div>
+                  <div>
+                    <CardTitle className="text-lg">Марина Кузнецова</CardTitle>
+                    <div className="flex text-orange mt-1">
+                      <Icon name="Star" size={16} className="fill-current" />
+                      <Icon name="Star" size={16} className="fill-current" />
+                      <Icon name="Star" size={16} className="fill-current" />
+                      <Icon name="Star" size={16} className="fill-current" />
+                      <Icon name="Star" size={16} className="fill-current" />
+                    </div>
+                  </div>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <p className="text-gray-600">
+                  Обращаюсь сюда уже третий год подряд. Цены адекватные, работают качественно и быстро. Очень удобная онлайн-запись. Всем рекомендую этот шиномонтаж!
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="scroll-animate opacity-0 hover:shadow-xl transition-shadow" style={{ animationDelay: '0.3s' }}>
+              <CardHeader>
+                <div className="flex items-center mb-4">
+                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-orange to-blue flex items-center justify-center text-white font-bold text-lg mr-4">
+                    ДП
+                  </div>
+                  <div>
+                    <CardTitle className="text-lg">Дмитрий Петров</CardTitle>
+                    <div className="flex text-orange mt-1">
+                      <Icon name="Star" size={16} className="fill-current" />
+                      <Icon name="Star" size={16} className="fill-current" />
+                      <Icon name="Star" size={16} className="fill-current" />
+                      <Icon name="Star" size={16} className="fill-current" />
+                      <Icon name="Star" size={16} className="fill-current" />
+                    </div>
+                  </div>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <p className="text-gray-600">
+                  Приятно удивлён уровнем сервиса! Современное оборудование, чистая зона ожидания. Мастера объяснили все нюансы по состоянию резины. Буду обращаться ещё!
+                </p>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
       {/* Contact Section */}
       <section id="contact" className="py-20 bg-gray-900 text-white scroll-animate opacity-0">
         <div className="container mx-auto px-4">
