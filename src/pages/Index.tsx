@@ -380,10 +380,10 @@ const Index = () => {
               </div>
               <div className="text-center scroll-animate opacity-0" style={{ animationDelay: '0.3s' }}>
                 <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-orange to-blue rounded-full flex items-center justify-center">
-                  <Icon name="Shield" size={24} className="text-white" />
+                  <Icon name="Coffee" size={24} className="text-white" />
                 </div>
-                <h3 className="text-xl font-semibold mb-2">Гарантия качества</h3>
-                <p className="text-gray-600">На все виды работ предоставляем официальную гарантию</p>
+                <h3 className="text-xl font-semibold mb-2">Бесплатный кофе</h3>
+                <p className="text-gray-600">Угощаем каждого клиента ароматным кофе во время ожидания</p>
               </div>
             </div>
           </div>
