@@ -137,9 +137,11 @@ const Index = () => {
               <a href="#contact" className="text-gray-600 hover:text-orange transition-colors">Контакты</a>
               <a href="#about" className="text-gray-600 hover:text-orange transition-colors">О нас</a>
             </div>
-            <Button className="bg-orange hover:bg-orange-dark text-white">
-              <Icon name="Phone" size={16} className="mr-2" />
-              +7 (909) 872-26-29
+            <Button className="bg-orange hover:bg-orange-dark text-white" asChild>
+              <a href="tel:+79098722629">
+                <Icon name="Phone" size={16} className="mr-2" />
+                +7 (909) 872-26-29
+              </a>
             </Button>
           </nav>
         </div>
@@ -163,9 +165,11 @@ const Index = () => {
                 <Icon name="Calendar" size={20} className="mr-2" />
                 Записаться онлайн
               </Button>
-              <Button size="lg" variant="outline" className="border-blue text-blue hover:bg-blue hover:text-white px-8 py-4 text-lg">
-                <Icon name="Phone" size={20} className="mr-2" />
-                +7 (909) 872-26-29
+              <Button size="lg" variant="outline" className="border-blue text-blue hover:bg-blue hover:text-white px-8 py-4 text-lg" asChild>
+                <a href="tel:+79098722629">
+                  <Icon name="Phone" size={20} className="mr-2" />
+                  +7 (909) 872-26-29
+                </a>
               </Button>
             </div>
           </div>
@@ -395,10 +399,10 @@ const Index = () => {
               <div className="scroll-animate opacity-0" style={{ animationDelay: '0.1s' }}>
                 <h3 className="text-2xl font-semibold mb-6">Свяжитесь с нами</h3>
                 <div className="space-y-4">
-                  <div className="flex items-center">
+                  <a href="tel:+79098722629" className="flex items-center hover:text-orange transition-colors">
                     <Icon name="Phone" size={20} className="text-orange mr-4" />
                     <span className="text-lg">+7 (909) 872-26-29</span>
-                  </div>
+                  </a>
                   <div className="flex items-center">
                     <Icon name="Mail" size={20} className="text-orange mr-4" />
                     <span className="text-lg">0768615@mail.ru</span>
