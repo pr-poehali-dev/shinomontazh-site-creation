@@ -323,7 +323,7 @@ const Index = () => {
                   Скидка 20% на все услуги для новых клиентов при первом визите
                 </p>
                 <Badge className="bg-orange/20 text-orange border-orange text-lg px-4 py-2">
-                  Действует до 31.12.2024
+                  Действует до 31.12.2025
                 </Badge>
               </CardContent>
             </Card>
