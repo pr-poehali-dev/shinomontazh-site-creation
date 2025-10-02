@@ -435,7 +435,7 @@ const Index = () => {
                 <div className="relative">
                   <div className="aspect-video rounded-lg overflow-hidden bg-gray-800 border border-gray-700">
                     <iframe
-                      src="https://yandex.ru/map-widget/v1/?um=constructor%3A8c5c8f8be45e8f5e5b5e8f5e8f5e8f5e&amp;source=constructor"
+                      src="https://yandex.ru/map-widget/v1/?ll=131.915278%2C43.115139&z=17&l=map&pt=131.915278,43.115139,pm2rdm"
                       width="100%"
                       height="100%"
                       style={{ border: 0 }}
@@ -451,7 +451,7 @@ const Index = () => {
                       <Icon name="MapPin" size={16} className="text-orange mr-2" />
                       <span className="font-semibold">ШиноПро</span>
                     </div>
-                    <p className="text-xs mt-1">ул. Автомобильная, 15</p>
+                    <p className="text-xs mt-1">ул. Снеговая, 2а</p>
                   </div>
                   <div className="absolute bottom-4 left-4 bg-orange/90 backdrop-blur rounded-lg p-2 text-white text-xs">
                     <Icon name="Navigation" size={14} className="inline mr-1" />
@@ -465,7 +465,7 @@ const Index = () => {
                   </p>
                   <p className="text-sm text-gray-300">
                     <Icon name="MapPin" size={16} className="inline mr-2 text-orange" />
-                    5 минут от метро Автозаводская
+                    Район Снеговая Падь, Владивосток
                   </p>
                 </div>
               </div>
