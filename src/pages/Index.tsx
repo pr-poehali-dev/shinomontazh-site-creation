@@ -473,6 +473,12 @@ const Index = () => {
               </CardContent>
             </Card>
           </div>
+          <div className="text-center mt-12 scroll-animate opacity-0" style={{ animationDelay: '0.4s' }}>
+            <Button size="lg" className="bg-gradient-to-r from-orange to-blue hover:from-orange-dark hover:to-blue-dark text-white px-8 py-4 text-lg">
+              <Icon name="MessageSquare" size={20} className="mr-2" />
+              Оставить отзыв
+            </Button>
+          </div>
         </div>
       </section>
 
