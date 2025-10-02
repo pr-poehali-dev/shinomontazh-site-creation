@@ -300,6 +300,89 @@ const Index = () => {
         </div>
       </section>
 
+      {/* Promotions Section */}
+      <section className="py-20 bg-gradient-to-br from-orange/10 via-white to-blue/10 scroll-animate opacity-0">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16 scroll-animate opacity-0">
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">Акции и спецпредложения</h2>
+            <p className="text-xl text-gray-600">Выгодные предложения для наших клиентов</p>
+          </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            <Card className="scroll-animate opacity-0 border-2 border-orange hover:shadow-2xl transition-all relative overflow-hidden" style={{ animationDelay: '0.1s' }}>
+              <div className="absolute top-0 right-0 bg-orange text-white px-4 py-2 rounded-bl-lg font-bold">
+                -20%
+              </div>
+              <CardHeader>
+                <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-orange to-orange-dark rounded-full flex items-center justify-center">
+                  <Icon name="Gift" size={32} className="text-white" />
+                </div>
+                <CardTitle className="text-2xl text-center">Первое посещение</CardTitle>
+              </CardHeader>
+              <CardContent className="text-center">
+                <p className="text-gray-600 mb-4">
+                  Скидка 20% на все услуги для новых клиентов при первом визите
+                </p>
+                <Badge className="bg-orange/20 text-orange border-orange text-lg px-4 py-2">
+                  Действует до 31.12.2024
+                </Badge>
+              </CardContent>
+            </Card>
+
+            <Card className="scroll-animate opacity-0 border-2 border-blue hover:shadow-2xl transition-all relative overflow-hidden" style={{ animationDelay: '0.2s' }}>
+              <div className="absolute top-0 right-0 bg-blue text-white px-4 py-2 rounded-bl-lg font-bold">
+                2 по цене 1
+              </div>
+              <CardHeader>
+                <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-blue to-blue-dark rounded-full flex items-center justify-center">
+                  <Icon name="Users" size={32} className="text-white" />
+                </div>
+                <CardTitle className="text-2xl text-center">Приведи друга</CardTitle>
+              </CardHeader>
+              <CardContent className="text-center">
+                <p className="text-gray-600 mb-4">
+                  Приведи друга — получи вторую замену колес бесплатно!
+                </p>
+                <Badge className="bg-blue/20 text-blue border-blue text-lg px-4 py-2">
+                  Постоянное предложение
+                </Badge>
+              </CardContent>
+            </Card>
+
+            <Card className="scroll-animate opacity-0 border-2 border-orange hover:shadow-2xl transition-all relative overflow-hidden" style={{ animationDelay: '0.3s' }}>
+              <div className="absolute top-0 right-0 bg-gradient-to-r from-orange to-blue text-white px-4 py-2 rounded-bl-lg font-bold">
+                Бонус
+              </div>
+              <CardHeader>
+                <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-orange to-blue rounded-full flex items-center justify-center">
+                  <Icon name="Star" size={32} className="text-white" />
+                </div>
+                <CardTitle className="text-2xl text-center">Комплексное обслуживание</CardTitle>
+              </CardHeader>
+              <CardContent className="text-center">
+                <p className="text-gray-600 mb-4">
+                  Замена + балансировка + мойка колес = скидка 15%
+                </p>
+                <Badge className="bg-gradient-to-r from-orange/20 to-blue/20 text-gray-900 border-orange text-lg px-4 py-2">
+                  Экономия до 1000₽
+                </Badge>
+              </CardContent>
+            </Card>
+          </div>
+          <div className="text-center mt-12 scroll-animate opacity-0" style={{ animationDelay: '0.4s' }}>
+            <p className="text-gray-600 text-lg mb-6">
+              <Icon name="Info" size={20} className="inline mr-2 text-orange" />
+              Акции не суммируются. Подробности уточняйте по телефону.
+            </p>
+            <Button size="lg" className="bg-gradient-to-r from-orange to-blue hover:from-orange-dark hover:to-blue-dark text-white px-8 py-4 text-lg" asChild>
+              <a href="tel:+79098722629">
+                <Icon name="Phone" size={20} className="mr-2" />
+                Узнать подробности
+              </a>
+            </Button>
+          </div>
+        </div>
+      </section>
+
       {/* Gallery Section */}
       <section id="gallery" className="py-20 scroll-animate opacity-0">
         <div className="container mx-auto px-4">
