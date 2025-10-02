@@ -18,6 +18,7 @@ const Index = () => {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showReviewForm, setShowReviewForm] = useState(false);
+  const [showScrollTop, setShowScrollTop] = useState(false);
   const [reviewForm, setReviewForm] = useState({
     name: '',
     rating: 5,
@@ -43,10 +44,21 @@ const Index = () => {
       observerRef.current?.observe(el);
     });
 
+    const handleScroll = () => {
+      setShowScrollTop(window.scrollY > 500);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
     return () => {
       observerRef.current?.disconnect();
+      window.removeEventListener('scroll', handleScroll);
     };
   }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   const services = [
     {
@@ -830,15 +842,93 @@ const Index = () => {
         </div>
       </section>
 
+      {/* Scroll to Top Button */}
+      {showScrollTop && (
+        <div className="fixed bottom-24 right-6 z-50 animate-fade-up">
+          <Button 
+            size="lg" 
+            onClick={scrollToTop}
+            className="rounded-full w-14 h-14 bg-white hover:bg-gray-100 text-orange shadow-2xl border-2 border-orange"
+            title="Наверх"
+          >
+            <Icon name="ArrowUp" size={24} />
+          </Button>
+        </div>
+      )}
+
       {/* Footer */}
-      <footer className="bg-gray-800 text-white py-8">
+      <footer className="bg-gray-900 text-white py-12">
         <div className="container mx-auto px-4">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <div className="flex items-center space-x-2 mb-4 md:mb-0">
-              <Icon name="Car" size={24} className="text-orange" />
-              <span className="text-xl font-bold">ШиноПро</span>
+          <div className="grid md:grid-cols-4 gap-8 mb-8">
+            <div>
+              <div className="flex items-center space-x-2 mb-4">
+                <Icon name="Car" size={28} className="text-orange" />
+                <span className="text-2xl font-bold">ШиноПро</span>
+              </div>
+              <p className="text-gray-400 text-sm">
+                Профессиональный шиномонтаж во Владивостоке. Более 10 лет опыта.
+              </p>
             </div>
-            <p className="text-gray-400">© 2024 ШиноПро. Все права защищены.</p>
+            <div>
+              <h3 className="font-bold text-lg mb-4">Услуги</h3>
+              <ul className="space-y-2 text-gray-400 text-sm">
+                <li className="hover:text-orange transition-colors cursor-pointer">Замена шин</li>
+                <li className="hover:text-orange transition-colors cursor-pointer">Балансировка</li>
+                <li className="hover:text-orange transition-colors cursor-pointer">Ремонт проколов</li>
+                <li className="hover:text-orange transition-colors cursor-pointer">Хранение колес</li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="font-bold text-lg mb-4">Контакты</h3>
+              <ul className="space-y-2 text-gray-400 text-sm">
+                <li className="flex items-center">
+                  <Icon name="Phone" size={16} className="text-orange mr-2" />
+                  <a href="tel:+79098722629" className="hover:text-orange transition-colors">+7 (909) 872-26-29</a>
+                </li>
+                <li className="flex items-center">
+                  <Icon name="Mail" size={16} className="text-orange mr-2" />
+                  <a href="mailto:0768615@mail.ru" className="hover:text-orange transition-colors">0768615@mail.ru</a>
+                </li>
+                <li className="flex items-start">
+                  <Icon name="MapPin" size={16} className="text-orange mr-2 mt-1" />
+                  <span>г. Владивосток,<br />ул. Снеговая, 2а</span>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="font-bold text-lg mb-4">Режим работы</h3>
+              <ul className="space-y-2 text-gray-400 text-sm">
+                <li className="flex justify-between">
+                  <span>Пн-Пт:</span>
+                  <span className="text-orange">8:00 - 20:00</span>
+                </li>
+                <li className="flex justify-between">
+                  <span>Суббота:</span>
+                  <span className="text-orange">9:00 - 18:00</span>
+                </li>
+                <li className="flex justify-between">
+                  <span>Воскресенье:</span>
+                  <span className="text-orange">10:00 - 16:00</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div className="border-t border-gray-700 pt-8">
+            <div className="flex flex-col md:flex-row justify-between items-center">
+              <p className="text-gray-400 text-sm mb-4 md:mb-0">
+                © 2024-2025 ШиноПро. Все права защищены.
+              </p>
+              <div className="flex items-center space-x-4 text-sm text-gray-400">
+                <span className="flex items-center">
+                  <Icon name="Shield" size={16} className="text-orange mr-2" />
+                  Лицензированный сервис
+                </span>
+                <span className="flex items-center">
+                  <Icon name="Award" size={16} className="text-orange mr-2" />
+                  Гарантия качества
+                </span>
+              </div>
+            </div>
           </div>
         </div>
       </footer>
