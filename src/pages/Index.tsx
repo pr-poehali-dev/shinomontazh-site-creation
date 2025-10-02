@@ -17,6 +17,12 @@ const Index = () => {
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showReviewForm, setShowReviewForm] = useState(false);
+  const [reviewForm, setReviewForm] = useState({
+    name: '',
+    rating: 5,
+    message: ''
+  });
   const observerRef = useRef<IntersectionObserver | null>(null);
 
   useEffect(() => {
@@ -474,11 +480,98 @@ const Index = () => {
             </Card>
           </div>
           <div className="text-center mt-12 scroll-animate opacity-0" style={{ animationDelay: '0.4s' }}>
-            <Button size="lg" className="bg-gradient-to-r from-orange to-blue hover:from-orange-dark hover:to-blue-dark text-white px-8 py-4 text-lg">
+            <Button 
+              size="lg" 
+              className="bg-gradient-to-r from-orange to-blue hover:from-orange-dark hover:to-blue-dark text-white px-8 py-4 text-lg"
+              onClick={() => setShowReviewForm(!showReviewForm)}
+            >
               <Icon name="MessageSquare" size={20} className="mr-2" />
-              Оставить отзыв
+              {showReviewForm ? 'Скрыть форму' : 'Оставить отзыв'}
             </Button>
           </div>
+          
+          {showReviewForm && (
+            <div className="max-w-2xl mx-auto mt-8 animate-fade-up">
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-2xl text-center">Ваш отзыв</CardTitle>
+                  <CardDescription className="text-center">Поделитесь впечатлениями о нашем сервисе</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <form onSubmit={(e) => {
+                    e.preventDefault();
+                    setIsSubmitting(true);
+                    setTimeout(() => {
+                      alert('Спасибо за ваш отзыв! Мы ценим ваше мнение.');
+                      setReviewForm({ name: '', rating: 5, message: '' });
+                      setShowReviewForm(false);
+                      setIsSubmitting(false);
+                    }, 1000);
+                  }} className="space-y-6">
+                    <div>
+                      <Label htmlFor="review-name">Ваше имя</Label>
+                      <Input
+                        id="review-name"
+                        type="text"
+                        placeholder="Введите ваше имя"
+                        value={reviewForm.name}
+                        onChange={(e) => setReviewForm({...reviewForm, name: e.target.value})}
+                        required
+                      />
+                    </div>
+                    <div>
+                      <Label>Оценка</Label>
+                      <div className="flex gap-2 mt-2">
+                        {[1, 2, 3, 4, 5].map((star) => (
+                          <button
+                            key={star}
+                            type="button"
+                            onClick={() => setReviewForm({...reviewForm, rating: star})}
+                            className="transition-transform hover:scale-110"
+                          >
+                            <Icon 
+                              name="Star" 
+                              size={32} 
+                              className={star <= reviewForm.rating ? 'text-orange fill-current' : 'text-gray-300'}
+                            />
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                    <div>
+                      <Label htmlFor="review-message">Ваш отзыв</Label>
+                      <Textarea
+                        id="review-message"
+                        placeholder="Расскажите о вашем опыте..."
+                        value={reviewForm.message}
+                        onChange={(e) => setReviewForm({...reviewForm, message: e.target.value})}
+                        rows={5}
+                        required
+                      />
+                    </div>
+                    <Button 
+                      type="submit" 
+                      size="lg" 
+                      className="w-full bg-gradient-to-r from-orange to-blue hover:from-orange-dark hover:to-blue-dark text-white"
+                      disabled={isSubmitting}
+                    >
+                      {isSubmitting ? (
+                        <>
+                          <Icon name="Loader2" size={20} className="mr-2 animate-spin" />
+                          Отправляем...
+                        </>
+                      ) : (
+                        <>
+                          <Icon name="Send" size={20} className="mr-2" />
+                          Отправить отзыв
+                        </>
+                      )}
+                    </Button>
+                  </form>
+                </CardContent>
+              </Card>
+            </div>
+          )}
         </div>
       </section>
 
