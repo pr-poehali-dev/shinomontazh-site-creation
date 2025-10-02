@@ -453,10 +453,15 @@ const Index = () => {
                     </div>
                     <p className="text-xs mt-1">ул. Снеговая, 2а</p>
                   </div>
-                  <div className="absolute bottom-4 left-4 bg-orange/90 backdrop-blur rounded-lg p-2 text-white text-xs">
+                  <a 
+                    href="https://yandex.ru/maps/?rtext=~43.115139,131.915278" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="absolute bottom-4 left-4 bg-orange/90 backdrop-blur rounded-lg p-2 text-white text-xs hover:bg-orange transition-colors cursor-pointer"
+                  >
                     <Icon name="Navigation" size={14} className="inline mr-1" />
                     Построить маршрут
-                  </div>
+                  </a>
                 </div>
                 <div className="mt-4 p-4 bg-gray-800 rounded-lg">
                   <p className="text-sm text-gray-300 mb-2">
