@@ -401,11 +401,11 @@ const Index = () => {
                   </div>
                   <div className="flex items-center">
                     <Icon name="Mail" size={20} className="text-orange mr-4" />
-                    <span className="text-lg">info@shinopro.ru</span>
+                    <span className="text-lg">0768615@mail.ru</span>
                   </div>
                   <div className="flex items-center">
                     <Icon name="MapPin" size={20} className="text-orange mr-4" />
-                    <span className="text-lg">г. Москва, ул. Автомобильная, 15</span>
+                    <span className="text-lg">г. Владивосток, ул. Снеговая, 2а</span>
                   </div>
                   <div className="flex items-center">
                     <Icon name="Clock" size={20} className="text-orange mr-4" />
