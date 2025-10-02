@@ -751,6 +751,85 @@ const Index = () => {
         </div>
       </section>
 
+      {/* Online Chat Widget */}
+      <div className="fixed bottom-6 right-6 z-50">
+        <Button 
+          size="lg" 
+          className="rounded-full w-16 h-16 bg-gradient-to-r from-orange to-blue hover:from-orange-dark hover:to-blue-dark text-white shadow-2xl animate-bounce"
+          asChild
+        >
+          <a href="tel:+79098722629" title="Связаться с нами">
+            <Icon name="MessageCircle" size={28} />
+          </a>
+        </Button>
+      </div>
+
+      {/* Map Section */}
+      <section className="py-20 bg-gray-50 scroll-animate opacity-0">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12 scroll-animate opacity-0">
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">Как нас найти</h2>
+            <p className="text-xl text-gray-600">г. Владивосток, ул. Снеговая, 2а</p>
+          </div>
+          <div className="max-w-5xl mx-auto">
+            <div className="relative rounded-2xl overflow-hidden shadow-2xl scroll-animate opacity-0" style={{ animationDelay: '0.2s' }}>
+              <div className="aspect-video">
+                <iframe
+                  src="https://yandex.ru/map-widget/v1/?ll=131.915278%2C43.115139&z=17&l=map&pt=131.915278,43.115139,pm2rdm"
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0 }}
+                  allowFullScreen={true}
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  className="grayscale-0 hover:grayscale-0 transition-all duration-300"
+                  title="Карта с адресом шиномонтажа"
+                ></iframe>
+              </div>
+              <div className="absolute top-6 right-6 bg-white/95 backdrop-blur rounded-xl p-4 shadow-lg max-w-xs">
+                <div className="flex items-center mb-2">
+                  <Icon name="MapPin" size={20} className="text-orange mr-3" />
+                  <span className="font-bold text-gray-900">ШиноПро</span>
+                </div>
+                <p className="text-sm text-gray-600 mb-3">ул. Снеговая, 2а, Владивосток</p>
+                <a 
+                  href="https://yandex.ru/maps/?rtext=~43.115139,131.915278" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="flex items-center text-sm text-orange hover:text-orange-dark transition-colors font-semibold"
+                >
+                  <Icon name="Navigation" size={16} className="mr-2" />
+                  Построить маршрут
+                </a>
+              </div>
+            </div>
+            <div className="grid md:grid-cols-3 gap-6 mt-8">
+              <Card className="scroll-animate opacity-0" style={{ animationDelay: '0.3s' }}>
+                <CardContent className="pt-6 text-center">
+                  <Icon name="Car" size={32} className="text-orange mx-auto mb-3" />
+                  <h3 className="font-semibold text-lg mb-2">Парковка</h3>
+                  <p className="text-gray-600 text-sm">Удобная парковка на 20+ мест</p>
+                </CardContent>
+              </Card>
+              <Card className="scroll-animate opacity-0" style={{ animationDelay: '0.4s' }}>
+                <CardContent className="pt-6 text-center">
+                  <Icon name="Clock" size={32} className="text-blue mx-auto mb-3" />
+                  <h3 className="font-semibold text-lg mb-2">Режим работы</h3>
+                  <p className="text-gray-600 text-sm">Пн-Вс: 8:00 - 20:00</p>
+                </CardContent>
+              </Card>
+              <Card className="scroll-animate opacity-0" style={{ animationDelay: '0.5s' }}>
+                <CardContent className="pt-6 text-center">
+                  <Icon name="MapPin" size={32} className="text-orange mx-auto mb-3" />
+                  <h3 className="font-semibold text-lg mb-2">Локация</h3>
+                  <p className="text-gray-600 text-sm">Район Снеговая Падь</p>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Footer */}
       <footer className="bg-gray-800 text-white py-8">
         <div className="container mx-auto px-4">
