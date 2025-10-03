@@ -65,37 +65,41 @@ const Index = () => {
       icon: 'Wrench',
       title: 'Замена шин',
       description: 'Быстрая и качественная замена шин любого размера',
-      price: 'от 800₽'
+      price: 'от 300₽'
     },
     {
       icon: 'Settings',
       title: 'Балансировка колес',
       description: 'Компьютерная балансировка для плавной езды',
-      price: 'от 600₽'
+      price: 'от 200₽'
     },
     {
       icon: 'CheckCircle',
       title: 'Ремонт шин',
       description: 'Восстановление поврежденных шин и камер',
-      price: 'от 400₽'
+      price: 'от 300₽'
     },
     {
       icon: 'Car',
       title: 'Диагностика подвески',
       description: 'Полная диагностика ходовой части автомобиля',
-      price: 'от 1200₽'
+      price: 'от 500₽'
     }
   ];
 
   const priceList = [
-    { service: 'Снятие/установка колеса R13-R15', price: '300₽' },
-    { service: 'Снятие/установка колеса R16-R18', price: '400₽' },
-    { service: 'Снятие/установка колеса R19+', price: '500₽' },
-    { service: 'Балансировка R13-R15', price: '200₽' },
-    { service: 'Балансировка R16-R18', price: '300₽' },
-    { service: 'Балансировка R19+', price: '400₽' },
-    { service: 'Ремонт прокола', price: '300₽' },
-    { service: 'Установка заплатки', price: '400₽' }
+    { service: 'Снятие/установка колеса R13-R15', price: '300₽', category: 'Легковые авто' },
+    { service: 'Снятие/установка колеса R16-R18', price: '400₽', category: 'Легковые авто' },
+    { service: 'Снятие/установка колеса R19-R22', price: '600₽', category: 'Кроссоверы/Внедорожники' },
+    { service: 'Балансировка R13-R15', price: '200₽', category: 'Легковые авто' },
+    { service: 'Балансировка R16-R18', price: '250₽', category: 'Легковые авто' },
+    { service: 'Балансировка R19-R22', price: '400₽', category: 'Кроссоверы/Внедорожники' },
+    { service: 'Ремонт прокола (жгут)', price: '300₽', category: 'Ремонт' },
+    { service: 'Ремонт прокола (заплатка)', price: '500₽', category: 'Ремонт' },
+    { service: 'Ремонт бокового пореза', price: '800₽', category: 'Ремонт' },
+    { service: 'Замена вентиля', price: '100₽', category: 'Дополнительно' },
+    { service: 'Правка литого диска', price: '1500₽', category: 'Дополнительно' },
+    { service: 'Хранение комплекта колес (сезон)', price: '3000₽', category: 'Хранение' }
   ];
 
   const galleryImages = [
@@ -434,13 +438,27 @@ const Index = () => {
                 <CardTitle className="text-2xl text-center">Прайс-лист</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="space-y-4">
-                  {priceList.map((item, index) => (
-                    <div key={index} className="flex justify-between items-center py-4 border-b border-gray-200 last:border-b-0">
-                      <span className="text-gray-700">{item.service}</span>
-                      <span className="font-semibold text-orange text-lg">{item.price}</span>
-                    </div>
-                  ))}
+                <div className="space-y-6">
+                  {['Легковые авто', 'Кроссоверы/Внедорожники', 'Ремонт', 'Дополнительно', 'Хранение'].map((category) => {
+                    const categoryItems = priceList.filter(item => item.category === category);
+                    if (categoryItems.length === 0) return null;
+                    
+                    return (
+                      <div key={category}>
+                        <h3 className="text-lg font-bold text-gray-900 mb-3 pb-2 border-b-2 border-orange/30">
+                          {category}
+                        </h3>
+                        <div className="space-y-3">
+                          {categoryItems.map((item, index) => (
+                            <div key={index} className="flex justify-between items-center py-2">
+                              <span className="text-gray-700">{item.service}</span>
+                              <span className="font-semibold text-orange text-lg whitespace-nowrap ml-4">{item.price}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    );
+                  })}
                 </div>
                 <div className="mt-8 p-6 bg-gradient-to-r from-orange/10 to-blue/10 rounded-lg">
                   <p className="text-center text-gray-700">
