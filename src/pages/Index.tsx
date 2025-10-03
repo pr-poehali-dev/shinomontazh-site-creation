@@ -5,6 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Badge } from '@/components/ui/badge';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import Icon from '@/components/ui/icon';
 
 const Index = () => {
@@ -24,6 +25,15 @@ const Index = () => {
     rating: 5,
     message: ''
   });
+  
+  const [calculator, setCalculator] = useState({
+    vehicleType: 'light',
+    wheelSize: 'r13-r15',
+    service: 'change',
+    wheelsCount: 4,
+    additionalServices: [] as string[]
+  });
+  
   const observerRef = useRef<IntersectionObserver | null>(null);
 
   useEffect(() => {
@@ -58,6 +68,39 @@ const Index = () => {
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+  
+  const calculatePrice = () => {
+    let total = 0;
+    const { vehicleType, wheelSize, service, wheelsCount } = calculator;
+    
+    if (service === 'change') {
+      if (vehicleType === 'light') {
+        if (wheelSize === 'r13-r15') total = 300;
+        else if (wheelSize === 'r16-r18') total = 400;
+      } else {
+        if (wheelSize === 'r19-r22') total = 600;
+      }
+    } else if (service === 'balance') {
+      if (vehicleType === 'light') {
+        if (wheelSize === 'r13-r15') total = 200;
+        else if (wheelSize === 'r16-r18') total = 250;
+      } else {
+        if (wheelSize === 'r19-r22') total = 400;
+      }
+    } else if (service === 'repair') {
+      total = 300;
+      return total;
+    }
+    
+    total *= wheelsCount;
+    
+    calculator.additionalServices.forEach(service => {
+      if (service === 'valve') total += 100 * wheelsCount;
+      if (service === 'wash') total += 50 * wheelsCount;
+    });
+    
+    return total;
   };
 
   const services = [
@@ -432,7 +475,142 @@ const Index = () => {
             <h2 className="text-4xl font-bold text-gray-900 mb-4">Цены на услуги</h2>
             <p className="text-xl text-gray-600">Прозрачные и честные цены без скрытых доплат</p>
           </div>
-          <div className="max-w-4xl mx-auto">
+          
+          <div className="max-w-5xl mx-auto mb-12">
+            <Card className="scroll-animate opacity-0 border-2 border-orange shadow-xl">
+              <CardHeader className="bg-gradient-to-r from-orange/10 to-blue/10">
+                <CardTitle className="text-2xl text-center flex items-center justify-center">
+                  <Icon name="Calculator" size={28} className="mr-3 text-orange" />
+                  Калькулятор стоимости
+                </CardTitle>
+                <CardDescription className="text-center text-base">
+                  Рассчитайте стоимость услуг прямо сейчас
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="p-6">
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div className="space-y-4">
+                    <div>
+                      <Label className="text-base font-semibold mb-2 block">Тип автомобиля</Label>
+                      <Select value={calculator.vehicleType} onValueChange={(value) => setCalculator({...calculator, vehicleType: value})}>
+                        <SelectTrigger className="h-12 text-base">
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="light">Легковой автомобиль</SelectItem>
+                          <SelectItem value="suv">Кроссовер/Внедорожник</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    
+                    <div>
+                      <Label className="text-base font-semibold mb-2 block">Размер дисков</Label>
+                      <Select value={calculator.wheelSize} onValueChange={(value) => setCalculator({...calculator, wheelSize: value})}>
+                        <SelectTrigger className="h-12 text-base">
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {calculator.vehicleType === 'light' ? (
+                            <>
+                              <SelectItem value="r13-r15">R13 - R15</SelectItem>
+                              <SelectItem value="r16-r18">R16 - R18</SelectItem>
+                            </>
+                          ) : (
+                            <SelectItem value="r19-r22">R19 - R22</SelectItem>
+                          )}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    
+                    <div>
+                      <Label className="text-base font-semibold mb-2 block">Услуга</Label>
+                      <Select value={calculator.service} onValueChange={(value) => setCalculator({...calculator, service: value})}>
+                        <SelectTrigger className="h-12 text-base">
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="change">Замена шин</SelectItem>
+                          <SelectItem value="balance">Балансировка</SelectItem>
+                          <SelectItem value="repair">Ремонт прокола</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    
+                    <div>
+                      <Label className="text-base font-semibold mb-2 block">Количество колес: {calculator.wheelsCount}</Label>
+                      <input 
+                        type="range" 
+                        min="1" 
+                        max="4" 
+                        value={calculator.wheelsCount}
+                        onChange={(e) => setCalculator({...calculator, wheelsCount: parseInt(e.target.value)})}
+                        className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-orange"
+                      />
+                      <div className="flex justify-between text-xs text-gray-500 mt-1">
+                        <span>1</span>
+                        <span>2</span>
+                        <span>3</span>
+                        <span>4</span>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div className="bg-gradient-to-br from-orange/5 to-blue/5 rounded-lg p-6 flex flex-col justify-between">
+                    <div>
+                      <h3 className="text-lg font-bold mb-4">Дополнительно:</h3>
+                      <div className="space-y-3">
+                        <label className="flex items-center space-x-3 cursor-pointer">
+                          <input 
+                            type="checkbox" 
+                            className="w-5 h-5 text-orange border-gray-300 rounded focus:ring-orange"
+                            checked={calculator.additionalServices.includes('valve')}
+                            onChange={(e) => {
+                              if (e.target.checked) {
+                                setCalculator({...calculator, additionalServices: [...calculator.additionalServices, 'valve']});
+                              } else {
+                                setCalculator({...calculator, additionalServices: calculator.additionalServices.filter(s => s !== 'valve')});
+                              }
+                            }}
+                          />
+                          <span className="text-base">Замена вентиля (+100₽/колесо)</span>
+                        </label>
+                        <label className="flex items-center space-x-3 cursor-pointer">
+                          <input 
+                            type="checkbox" 
+                            className="w-5 h-5 text-orange border-gray-300 rounded focus:ring-orange"
+                            checked={calculator.additionalServices.includes('wash')}
+                            onChange={(e) => {
+                              if (e.target.checked) {
+                                setCalculator({...calculator, additionalServices: [...calculator.additionalServices, 'wash']});
+                              } else {
+                                setCalculator({...calculator, additionalServices: calculator.additionalServices.filter(s => s !== 'wash')});
+                              }
+                            }}
+                          />
+                          <span className="text-base">Мойка колес (+50₽/колесо)</span>
+                        </label>
+                      </div>
+                    </div>
+                    
+                    <div className="mt-6 pt-6 border-t-2 border-orange/30">
+                      <div className="flex justify-between items-center mb-4">
+                        <span className="text-xl font-bold text-gray-700">Итого:</span>
+                        <span className="text-4xl font-bold text-orange">{calculatePrice()}₽</span>
+                      </div>
+                      <Button size="lg" className="w-full bg-gradient-to-r from-orange to-blue hover:from-orange-dark hover:to-blue-dark text-white text-lg py-6">
+                        <Icon name="Phone" size={20} className="mr-2" />
+                        Записаться
+                      </Button>
+                      <p className="text-xs text-gray-500 text-center mt-3">
+                        * Итоговая стоимость может измениться после осмотра
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+          <div className="max-w-5xl mx-auto">
             <Card className="scroll-animate opacity-0">
               <CardHeader>
                 <CardTitle className="text-2xl text-center">Прайс-лист</CardTitle>
